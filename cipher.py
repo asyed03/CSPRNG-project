@@ -1,6 +1,7 @@
 import random
 import sympy
 import argparse
+import time
 
 class BBS:
     def __init__(self, seed=3, p=11, q=23):
@@ -28,7 +29,7 @@ class BBS:
         even_parity_bit = self._get_even_parity_bit(x_n_plus_1)
         least_significant_bit = self._get_least_significant_bit(x_n_plus_1)
         self.x_n = x_n_plus_1
-        return x_n_plus_1 % 128, even_parity_bit, least_significant_bit
+        return x_n_plus_1, even_parity_bit, least_significant_bit
 
     def generate_sequence(self, length, method="least_significant_bit"):
         # Generate a sequence of pseudorandom numbers
@@ -119,16 +120,22 @@ def main():
     # Encrypt the plaintext
     encrypted_text_bbs = stream_cipher.encrypt(plaintext, method="BBS")
     print(f"Encrypted BBS: {encrypted_text_bbs}")
+    print(f"BBS Encryption Time: {2}")
 
     encrypted_text_lcg = stream_cipher.encrypt(plaintext, method="LCG")
     print(f"Encrypted LCG: {encrypted_text_lcg}")
+    print(f"LCG Encryption Time: {2}")
 
     # Decrypt the ciphertext
     decrypted_text_bbs = stream_cipher.decrypt(encrypted_text_bbs, method="BBS")
     print(f"Decrypted BBS: {decrypted_text_bbs}")
+    print(f"BBS Decryption Time: {2}")
 
     decrypted_text_lcg = stream_cipher.decrypt(encrypted_text_lcg, method="LCG")
     print(f"Decrypted LCG: {decrypted_text_lcg}")
+    print(f"LCG Decryption Time: {2}")
 
 if __name__ == "__main__":
-    main()
+    bbs = BBS()
+    nums = bbs.generate_sequence(30, "raw")
+    print(nums)
